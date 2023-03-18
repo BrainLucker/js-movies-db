@@ -1,26 +1,3 @@
-/* Задание на урок:
-
-1) Создать переменную numberOfFilms и в неё поместить ответ от пользователя на вопрос:
-'Сколько фильмов вы уже посмотрели?'
-
-2) Создать объект personalMovieDB и в него поместить такие свойства:
-    - count - сюда передается ответ на первый вопрос
-    - movies - в это свойство поместить пустой объект
-    - actors - тоже поместить пустой объект
-    - genres - сюда поместить пустой массив
-    - privat - в это свойство поместить boolean(логическое) значение false
-
-3) Задайте пользователю по два раза вопросы:
-    - 'Один из последних просмотренных фильмов?'
-    - 'На сколько оцените его?'
-Ответы стоит поместить в отдельные переменные
-Записать ответы в объект movies в формате: 
-    movies: {
-        'logan': '8.1'
-    }
-
-Проверить, чтобы все работало без ошибок в консоли */
-
 'use strict';
 
 const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
@@ -35,9 +12,29 @@ const personalMovieDB = {
 };
 
 for (let i = 0; i < 2; i++) {
-	var q1 = prompt('Один из последних просмотренных фильмов?', '');
-	var q2 = prompt('На сколько оцените его?', '');
-	personalMovieDB.movies[q1] = q2;
+	var movie = prompt('Один из последних просмотренных фильмов?', '');
+	var rating = prompt('На сколько оцените его?', '');
+
+	if (movie != null && movie != '' && movie.length < 50 &&
+	rating != null && rating != '') {
+		personalMovieDB.movies[movie] = rating;
+		console.log('Movie ' + movie + ' has added to DB');
+	} else {
+		i--;
+		console.log('Error while adding movie to BD');
+	}
 }
 
 console.log(personalMovieDB);
+
+let msg;
+if (personalMovieDB.count >= 30) 
+	msg = 'Вы киноман';
+else if (personalMovieDB.count >= 10)
+	msg = 'Вы классический зритель';
+else if (personalMovieDB.count > 0)
+	msg = 'Просмотрено довольно мало фильмов';
+else
+	msg = 'Произошла ошибка';
+
+console.log(msg);
